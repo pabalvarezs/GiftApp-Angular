@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SearchGifsResponse, Gif } from '../interface/gifs.interface';
 
@@ -8,6 +8,7 @@ import { SearchGifsResponse, Gif } from '../interface/gifs.interface';
 export class GifsService {
 
   private apiKey : string = 'IApxXoeq00hFtLa54ty29zD6dIK7dgAM';
+  private servicioUrl  : string ='http://api.giphy.com/v1/gifs'
   private _historial : string[] = [];
   
   public resultados : Gif[] =[];
@@ -40,7 +41,17 @@ export class GifsService {
 
     }
 
-    this.http.get<SearchGifsResponse>(`http://api.giphy.com/v1/gifs/search?api_key=IApxXoeq00hFtLa54ty29zD6dIK7dgAM&q=${ query}&limit=10`)
+    const params = new HttpParams()
+                    .set('api_key',this.apiKey)
+                    .set('limit','10')
+                    .set('q',query);
+    // console.log(params.toString());
+    
+    
+    // this.http.get<SearchGifsResponse>(`${this.servicioUrl}/search?api_key=${this.apiKey}&q=${ query}&limit=10`)
+    // this.http.get<SearchGifsResponse>(`${this.servicioUrl}/search`,{ params : params }) // EN VERSIONES NUEVAS DE ECMASCRIPT ESTO NO ES NECESARIO
+    this.http.get<SearchGifsResponse>(`${this.servicioUrl}/search`,{ params })
+
       .subscribe( ( resp ) =>{
 
         console.log(resp.data);
