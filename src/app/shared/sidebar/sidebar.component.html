@@ -1,8 +1,9 @@
 <div class="list-group list-reset">
     <a  
        *ngFor="let busqueda of historial"
+       (click) ="buscar(busqueda)"
         href="#"
-        class="list-group-item list-group-item-action"
+        class="list-group-item list-group-item-action"        
         >
     {{busqueda | titlecase}}
       </a>
