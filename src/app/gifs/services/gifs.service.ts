@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { SearchGifsResponse, Gif } from '../interface/gifs.interface';
 
 @Injectable({
   providedIn: 'root' //esto le dice a angular que funcione en todos los modulos, no es necesario ponerlo en los providers del modulo
@@ -9,7 +10,7 @@ export class GifsService {
   private apiKey : string = 'IApxXoeq00hFtLa54ty29zD6dIK7dgAM';
   private _historial : string[] = [];
   
-  public resultados : any[] =[];
+  public resultados : Gif[] =[];
 
 
   get historial(){
@@ -28,11 +29,11 @@ export class GifsService {
       this._historial = this._historial.splice(0,10);   // cortamos el historial 
     }
 
-    this.http.get(`http://api.giphy.com/v1/gifs/search?api_key=IApxXoeq00hFtLa54ty29zD6dIK7dgAM&q=${ query}&limit=10`)
-      .subscribe((resp : any) =>{
+    this.http.get<SearchGifsResponse>(`http://api.giphy.com/v1/gifs/search?api_key=IApxXoeq00hFtLa54ty29zD6dIK7dgAM&q=${ query}&limit=10`)
+      .subscribe( ( resp ) =>{
 
         console.log(resp.data);
-        this.resultados = resp.data
+        this.resultados = resp.data;
       }); 
 
 
