@@ -8,7 +8,7 @@ import { SearchGifsResponse, Gif } from '../interface/gifs.interface';
 export class GifsService {
 
   private apiKey : string = 'IApxXoeq00hFtLa54ty29zD6dIK7dgAM';
-  private servicioUrl  : string ='http://api.giphy.com/v1/gifs'
+  private servicioUrl  : string ='https://api.giphy.com/v1/gifs'
   private _historial : string[] = [];
   
   public resultados : Gif[] =[];
